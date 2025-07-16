@@ -2,7 +2,7 @@ from fhir.resources import fhirtypes
 from pydantic import Field, model_validator
 from pydantic.json_schema import SkipJsonSchema
 
-import resources.fhirtypesextra as fhirtypeextra
+import resources.fhirtypesextra as fhirtypesextra
 from exceptions.fhir import ElementNotAllowedError, InvalidMoleculeTypeError
 from resources.moleculardefinition import MolecularDefinition
 
