@@ -1,7 +1,7 @@
 [project]
-name = "" 
-version = "" 
-description = ""
+name = "MolDef" 
+version = "0.1.0" 
+description = "This project provides a Python-based implementation of the HL7 FHIR Molecular Definition standard."
 readme = "README.md"
 authors = [
     {name = "Robert R. Freimuth"},
@@ -9,7 +9,7 @@ authors = [
 ]
 
 license = {file = "LICENSE"}
-# Keywords for your project, these are tags that help find your the project. 
+# Keywords for your project. These are tags that help users find the project.
 keywords = [
     "FHIR",
     "MolecularDefinition",
@@ -26,8 +26,9 @@ classifiers = [
 requires-python = ">=3.11"
 
 dependencies = [
-    "fhir-core==1.0.2"
-    "fhir-resources==8.0.0"
+    "fhir-core==1.0.2",
+    "fhir-resources==8.0.0",
+    "ipykernel==6.28.0",
     ]
 
 [project.optional-dependencies]
@@ -44,7 +45,7 @@ where = ["src"]
 
 [tool.ruff]
 src = ["src"]
-exclude = ["notebooks","data","edits"]
+exclude = ["notebooks", "data", "edits"]
 
 [tool.ruff.lint]
 
