@@ -1,5 +1,5 @@
 [project]
-name = "MolDef" 
+name = "fhir.moldef" 
 version = "0.1.0" 
 description = "This project provides a Python-based implementation of the HL7 FHIR Molecular Definition standard."
 readme = "README.md"
@@ -34,6 +34,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest==7.4.4",
+    "deepdiff==8.1.1",
 ]
 
 [build-system]
