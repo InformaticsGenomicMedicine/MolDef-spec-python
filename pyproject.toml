@@ -4,8 +4,8 @@ version = "0.1.0"
 description = "This project provides a Python-based implementation of the HL7 FHIR Molecular Definition standard."
 readme = "README.md"
 authors = [
+    {name = "Salem Bajjali"},
     {name = "Robert R. Freimuth"},
-    {name = "Salem Bajjali"}
 ]
 
 license = {file = "LICENSE"}
