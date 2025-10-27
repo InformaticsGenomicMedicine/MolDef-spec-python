@@ -7,11 +7,12 @@ from exceptions.fhir import (
     InvalidFocusCodingDisplay,
     InvalidMoleculeTypeError,
     MemberStateNotAllowedError,
-    MissingAlleleState,
+    MissingAlternativeState,
     MissingFocus,
     MissingFocusCoding,
     MissingFocusCodingCode,
     MissingFocusCodingSystem,
+    MissingReferenceState,
     MissingRepresentation,
     MultipleContextState,
     MultipleLocation,
@@ -19,7 +20,7 @@ from exceptions.fhir import (
 from resources.moleculardefinition import MolecularDefinition
 
 
-class Allele(MolecularDefinition):
+class Variation(MolecularDefinition):
     """FHIR Allele Profile
 
     Args:
@@ -32,10 +33,11 @@ class Allele(MolecularDefinition):
         Allele: An instance of the Allele class.
 
     """
-    FOCUS_SYSTEM: ClassVar[str] = "http://hl7.org/fhir/uv/molecular-definition-data-types/CodeSystem/molecular-definition-focus"
+    # FOCUS_SYSTEM: ClassVar[str] = "http://hl7.org/fhir/uv/molecular-definition-data-types/CodeSystem/molecular-definition-focus"
     EXPECTED_DISPLAY: ClassVar[dict[str, str]] = {
-        "allele-state": "Allele State",
-        "context-state": "Context State"
+        "context-state": "Context State",
+        "reference-state": "Reference State",
+        "alternative-state": "Alternative State",
         }
 
     memberState: ClassVar[fhirtypes.ReferenceType| None] #type: ignore
@@ -135,41 +137,43 @@ class Allele(MolecularDefinition):
             )
         return self
 
+
     @model_validator(mode="after")
     def validate_focus(self):
-        allele_state_count = 0
+
         context_state_count = 0
+        reference_state_count = 0
+        alternative_state_count = 0
 
         for idx, rep in enumerate(self.representation):
-            # Focus has a card. of 1..1, must be present in every representation
+            #check for focus must be present
             if getattr(rep,"focus", None) is None:
                 raise MissingFocus(
                     f"representation[{idx}].focus is required when slicing by focus CodeableConcept."
                 )
-            codings = getattr(rep.focus, 'coding', None)
-            # coding has a card. of 1..*, must be present in every focus
+            # Check if coding is present
+            codings = getattr(rep.focus,"coding", None)
             if not codings:
                 raise MissingFocusCoding(
                     f"representation[{idx}].focus.coding must contain at least one entry."
                 )
 
             for coding in codings:
-                # card. of code must be 1..1
-                code = getattr(coding, "code", None)
-                # card. of system must be 1..1
-                system = getattr(coding, "system", None)
-                # card. of display must be 1..1
-                display = getattr(coding, "display", None)
+                code = getattr(coding,"code", None)
+                system = getattr(coding,"system", None)
+                display = getattr(coding,"display", None)
 
+                #check if coding is present
                 if code is None:
                     raise MissingFocusCodingCode(
                         f"representation[{idx}].focus.coding is missing a 'code' element.")
 
-                if code in {"allele-state", "context-state"}:
+                if code in {"context-state","reference-state","alternative-state"}:
                     if not system:
                         raise MissingFocusCodingSystem(
                             f"representation[{idx}].focus.coding (code='{code}') must define 'system'."
                         )
+
                     #NOTE: IN some of the examples the fixed values isn't the same as the FOCUS_SYSTEM.
                     #NOTE: To avoid changing the examples and this we are just going to # it out.
                     # if system != self.FOCUS_SYSTEM:
@@ -185,20 +189,27 @@ class Allele(MolecularDefinition):
                             f"found '{display}'."
                             )
 
-                    if code == "allele-state":
-                        allele_state_count += 1
-                    elif code == "context-state":
+                    if code == "context-state":
                         context_state_count += 1
-
-        if allele_state_count != 1:
-            raise MissingAlleleState(
-                "Exactly one 'allele-state' must be present across 'representation' (cardinality 1..1)."
-            )
+                    elif code == "reference-state":
+                        reference_state_count += 1
+                    elif code == "alternative-state":
+                        alternative_state_count += 1
 
         if context_state_count > 1:
             raise MultipleContextState(
                 "At most one 'context-state' is allowed across 'representation' (cardinality 0..1)."
             )
+
+        if reference_state_count != 1:
+            raise MissingReferenceState(
+                "Exactly one 'reference-state' must be present across 'representation' (cardinality 1..1)."
+                )
+
+        if alternative_state_count != 1:
+            raise MissingAlternativeState(
+                "Exactly one 'alternative-state' must be present across 'representation' (cardinality 1..1)."
+                )
 
         return self
 
