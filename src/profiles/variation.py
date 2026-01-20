@@ -57,7 +57,7 @@ class Variation(MolecularDefinition):
 
         """
         if isinstance(data,dict) and "memberState" in data:
-            raise MemberStateNotAllowedError("`memberState` is not allowed in Allele.")
+            raise MemberStateNotAllowedError("`memberState` is not allowed in Variation.")
         return data
 
     @model_validator(mode="after")
@@ -78,18 +78,18 @@ class Variation(MolecularDefinition):
 
         if mt is None:
             raise InvalidMoleculeTypeError(
-                "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Allele."
+                "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Variation."
                 )
         if isinstance(mt,list):
             if len(mt) != 1:
                 raise InvalidMoleculeTypeError(
-                     "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Allele."
+                     "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Variation."
                 )
         else:
             try:
                 if not mt.model_dump(exclude_unset = True):
                     raise InvalidMoleculeTypeError(
-                    "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Allele."
+                    "The `moleculeType` field must contain exactly one item. `moleculeType` has a 1..1 cardinality for Variation."
                 )
             except AttributeError:
                 pass
@@ -112,7 +112,7 @@ class Variation(MolecularDefinition):
         """
         if not self.location or len(self.location) != 1:
             raise MultipleLocation(
-                "The `location` field must contain exactly one item. `location` has a 1..1 cardinality for Allele."
+                "The `location` field must contain exactly one item. `location` has a 1..1 cardinality for Variation."
             )
         return self
 
@@ -132,7 +132,7 @@ class Variation(MolecularDefinition):
         """
         if not self.representation:
             raise MissingRepresentation(
-                "The `representation` field must contain one or more items. `representation` has a 1..* cardinality for Allele."
+                "The `representation` field must contain one or more items. `representation` has a 1..* cardinality for Variation."
 
             )
         return self
