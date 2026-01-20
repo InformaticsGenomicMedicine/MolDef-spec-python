@@ -21,7 +21,7 @@ from resources.moleculardefinition import MolecularDefinition
 
 
 class Variation(MolecularDefinition):
-    """FHIR Allele Profile
+    """FHIR Variation Profile
 
     Args:
         MolecularDefinition (MolecularDefinition): The base class for molecular definitions.
@@ -30,7 +30,7 @@ class Variation(MolecularDefinition):
         ValueError: If `memberState` is included in the profile.
 
     Returns:
-        Allele: An instance of the Allele class.
+        Variation: An instance of the Variation class.
 
     """
     # FOCUS_SYSTEM: ClassVar[str] = "http://hl7.org/fhir/uv/molecular-definition-data-types/CodeSystem/molecular-definition-focus"
