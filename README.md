@@ -5,28 +5,65 @@
 This repository contains the core schema for our broader genomics tooling ecosystem, along with example Jupyter notebooks that demonstrate how to create MolecularDefinition, Allele, and Sequence models in Python using **pydantic**. 
 
 ---
-### Getting started
+## Local Setup
 
-This project isn’t published on PyPI yet, but you can follow these steps to install it locally and explore the example notebooks.
+Follow these steps to set up the project for local development.
+
+### 1. Clone the Repository
+Make sure you’re logged into GitHub, then clone the repository and navigate into it:
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/MolDef-spec-python.git
 cd MolDef-spec-python
-
-# Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate    # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
 ```
 
-**Exlporing the Jupyter Notebooks**
+### 2. Create and Activate a Virtual Environment
+We recommend using Python’s built-in `venv` module.
+
+   ```bash
+   python -m venv venv
+   ```
+
+Activate the virtual environment
+
+- **macOS/Linux**
+   ```bash
+   source venv/bin/activate
+   ```
+- **Windows** 
+   ```bash
+   venv\Scripts\activate
+   ```
+
+### 3. Install the Package
+- **Installation (until the package is published)**
+   ```bash
+   pip install . 
+   ```
+
+- **Local Development**
+   ```bash
+   pip install -e .[dev]
+   ```
+
+### 4. Verify Installation
+Confirm the package was installed successfully
+   ```bash
+   pip show fhir.moldef.spec 
+   ```
+
+## Jupyter Notebooks
+
+This repository includes example Jupyter notebooks for exploring and experimenting with the project.
+
+* **[`notebooks/README.md`](notebooks/README.md)**
+
+<!-- **Exlporing the Jupyter Notebooks**
 1. Navigate to the `notebooks` directory and open a notebook you want to run.
 2. In the Jupyter interface, click **Select Kernel** (top-right).
 3. In the pop-up, choose **Python Environment...** and select your virtual environment.
-4. Once the correct kernel is selected, run the cells in the notebook to explore the examples.
+4. Once the correct kernel is selected, run the cells in the notebook to explore the examples. -->
 
 ---
 ### Roadmap & Integration Plans
