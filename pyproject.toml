@@ -1,6 +1,6 @@
 [project]
-name = "fhir.moldef.spec" 
-version = "0.2.0" 
+name = "moldef.spec" 
+version = "0.3.0" 
 description = "This project provides a Python-based implementation of the HL7 FHIR Molecular Definition standard."
 readme = "README.md"
 authors = [
@@ -21,7 +21,9 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Bio-Informatics",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11"
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 requires-python = ">=3.11"
 
