@@ -1,3 +1,12 @@
+# Archived Repository
+
+This repository will be archived in the coming weeks and will become read-only.
+
+Development has moved to the following repository:
+[fhir-moldef](https://github.com/InformaticsGenomicMedicine/fhir-moldef)
+
+No further updates will be made to this repository.
+
 ## Overview
 
 `MolDef-spec-python` is a Python implementation of the **HL7 FHIR MolecularDefinition** resource, with structured profiles for **Allele** and **Sequence**. These profiles apply structural and semantic constraints to the base FHIR MolecularDefinition resource.
